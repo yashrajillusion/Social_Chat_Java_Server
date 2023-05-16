@@ -9,7 +9,7 @@ public class SocketIOConfig {
     @Bean
     public SocketIOServer socketIOServer() {
         com.corundumstudio.socketio.Configuration config = new com.corundumstudio.socketio.Configuration();
-        config.setHostname("127.0.0.1");
+        config.setHostname("https://social-chat.onrender.com");
         config.setPort(3002);
         return new SocketIOServer(config);
     }
