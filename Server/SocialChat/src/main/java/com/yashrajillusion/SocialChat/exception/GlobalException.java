@@ -17,7 +17,7 @@ public class GlobalException {
         err.setTimeStamp(LocalDateTime.now());
         err.setMessage(se.getMessage());
         err.setDetails(req.getDescription(false));
-        err.setStatus("400");
+        err.setStatus(400);
 
         return new ResponseEntity<CommonErrorResponse>(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }

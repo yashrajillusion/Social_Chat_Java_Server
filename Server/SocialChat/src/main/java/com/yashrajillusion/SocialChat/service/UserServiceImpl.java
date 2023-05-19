@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String login(User user) throws Exception {
-        return null;
+    public Optional<User> findByEmail(String email) throws Exception {
+        return userDao.findByEmail(email);
     }
 
     @Override
