@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface UserService {
     public User register(User user) throws Exception;
-    public String login(User user) throws  Exception;
+    public Optional<User> findByEmail(String email) throws  Exception;
     public List<User> getAllUsers();
     public List<User> findAllByUserIds(List<UUID> membersId) throws Exception;
     public Optional<User> findByUserId(UUID id) throws Exception;

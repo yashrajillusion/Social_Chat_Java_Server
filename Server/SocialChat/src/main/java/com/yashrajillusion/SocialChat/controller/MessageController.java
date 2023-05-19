@@ -1,5 +1,6 @@
 package com.yashrajillusion.SocialChat.controller;
 
+import com.yashrajillusion.SocialChat.controller.ResponseModel.CommonApiResponse;
 import com.yashrajillusion.SocialChat.model.Chat;
 import com.yashrajillusion.SocialChat.model.Message;
 import com.yashrajillusion.SocialChat.model.User;
@@ -26,7 +27,7 @@ public class MessageController {
     private UserService userService;
 
     @PostMapping("/message")
-    public ResponseEntity<Message> createChat(@RequestBody Message message) throws Exception {
+    public ResponseEntity<CommonApiResponse<Message>> createChat(@RequestBody Message message) throws Exception {
         Chat chat = chatService.findByChatId(UUID.fromString(message.getChatId())).orElseThrow(()-> new Exception("Chat not found"));
         User user = userService.findByUserId(UUID.fromString(message.getSenderId())).orElseThrow(()-> new Exception("User not exist"));
         message.setChat(chat);
@@ -34,12 +35,16 @@ public class MessageController {
         Message message_data = messageService.createMessage(message);
         chat.setLastMessage(message_data);
         chatService.createChat(chat);
-        return new ResponseEntity<Message>(message_data, HttpStatus.CREATED);
+        return new ResponseEntity<>(new CommonApiResponse<>(
+                201, "Message send successfully", message_data
+        ), HttpStatus.CREATED);
     }
 
     @GetMapping("/message/{id}")
-    public ResponseEntity<List<Message>> getAllMessageById(@PathVariable("id") String id) throws Exception {
+    public ResponseEntity<CommonApiResponse<List<Message>>> getAllMessageById(@PathVariable("id") String id) throws Exception {
         List<Message> message = messageService.findMessageByChatId(UUID.fromString(id));
-        return new ResponseEntity<List<Message>>(message, HttpStatus.CREATED);
+        return new ResponseEntity<>(new CommonApiResponse<List<Message>>(
+                200, "Get all Message fetched successfully", message
+        ), HttpStatus.CREATED);
     }
 }

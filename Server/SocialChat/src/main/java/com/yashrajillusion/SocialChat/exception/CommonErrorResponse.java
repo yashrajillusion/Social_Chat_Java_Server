@@ -3,14 +3,14 @@ package com.yashrajillusion.SocialChat.exception;
 import java.time.LocalDateTime;
 
 public class CommonErrorResponse {
-    private String status;
+    private int status;
     private String message;
     private String details;
     private LocalDateTime timeStamp;
 
     public  CommonErrorResponse(){}
 
-    public CommonErrorResponse(String status, String message, String details, LocalDateTime timeStamp) {
+    public CommonErrorResponse(int status, String message, String details, LocalDateTime timeStamp) {
         super();
         this.status = status;
         this.message = message;
@@ -18,11 +18,11 @@ public class CommonErrorResponse {
         this.timeStamp = timeStamp;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
