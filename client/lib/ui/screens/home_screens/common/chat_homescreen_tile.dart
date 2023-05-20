@@ -6,9 +6,16 @@ class ChatHomeScreenTile extends StatefulWidget {
   final String message;
   final String date;
   final String count;
+  final String firstCharAvatar;
   final VoidCallback onTap;
   const ChatHomeScreenTile(
-      {super.key, required this.name, required this.message, required this.date, required this.count, required this.onTap});
+      {super.key,
+      required this.name,
+      required this.message,
+      required this.date,
+      required this.count,
+      required this.onTap,
+      required this.firstCharAvatar});
 
   @override
   State<ChatHomeScreenTile> createState() => _ChatHomeScreenTileState();
@@ -33,6 +40,14 @@ class _ChatHomeScreenTileState extends State<ChatHomeScreenTile> {
               decoration: BoxDecoration(
                 color: const Color(0xFF213241),
                 borderRadius: BorderRadius.circular(100),
+              ),
+              child: Center(
+                child: CommonAppText(
+                  title: widget.firstCharAvatar,
+                  fontSize: 20,
+                  lineHeight: 0,
+                  titleColor: Colors.white,
+                ),
               ),
             ),
             const SizedBox(width: 10),
@@ -67,20 +82,21 @@ class _ChatHomeScreenTileState extends State<ChatHomeScreenTile> {
                   titleColor: const Color(0xFF8593A8),
                 ),
                 const SizedBox(height: 4),
-                Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF0573F3),
-                    borderRadius: BorderRadius.circular(100),
+                if (widget.count.isNotEmpty)
+                  Container(
+                    height: 20,
+                    width: 20,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0573F3),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: CommonAppText(
+                      titleTextAlign: TextAlign.center,
+                      title: widget.count,
+                      fontSize: 12,
+                      titleColor: const Color(0xFFF6FBFF),
+                    ),
                   ),
-                  child: CommonAppText(
-                    titleTextAlign: TextAlign.center,
-                    title: widget.count,
-                    fontSize: 12,
-                    titleColor: const Color(0xFFF6FBFF),
-                  ),
-                ),
               ],
             )
             // Column(
