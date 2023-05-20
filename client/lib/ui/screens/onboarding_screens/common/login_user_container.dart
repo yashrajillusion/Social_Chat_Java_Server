@@ -1,25 +1,26 @@
+import 'package:chat_app/infrastructure/providers/provider_registration.dart';
 import 'package:chat_app/ui/common/common_app_text/common_app_text.dart';
-import 'package:chat_app/ui/common/custom_loading/custom_loading.dart';
 import 'package:chat_app/ui/common/input_text_field/input_text_field.dart';
-import 'package:chat_app/ui/screens/home_screens/home_chats_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-class LoginUserContainer extends StatefulWidget {
+class LoginUserContainer extends ConsumerStatefulWidget {
   const LoginUserContainer({super.key});
 
   @override
-  State<LoginUserContainer> createState() => _LoginUserContainerState();
+  ConsumerState<LoginUserContainer> createState() => _LoginUserContainerState();
 }
 
 final _formKey = GlobalKey<FormState>();
 String email = '';
 String password = '';
 
-class _LoginUserContainerState extends State<LoginUserContainer> {
+class _LoginUserContainerState extends ConsumerState<LoginUserContainer> {
   @override
   Widget build(BuildContext context) {
+    final onBoardingProviderRead = ref.read(onboardingProvider);
     return Form(
         key: _formKey,
         child: Column(
@@ -63,14 +64,8 @@ class _LoginUserContainerState extends State<LoginUserContainer> {
               onTap: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  CustomLoading.progressDialog(isLoading: true, context: context);
-
-                  // Navigator.pushNamed(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
-                  Future.delayed(Duration(seconds: 2), () {
-                    // Perform your task here after the delay
-                    CustomLoading.progressDialog(isLoading: false, context: context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeChatsScreen()));
-                  });
+                  ref.read(onboardingProvider).getAllUsers(context);
+                  onBoardingProviderRead.loginAccount(context: context, email: email, password: password);
                 }
               },
               child: Container(

@@ -53,7 +53,7 @@ class _SwitchingCapsuleState extends ConsumerState<SwitchingCapsule> {
                   color: !homeProviderWatch.isMessages ? const Color(0xFF213241) : Colors.transparent,
                 ),
                 child: CommonAppText(
-                  title: "Groups",
+                  title: "Contacts",
                   fontSize: 16,
                   titleColor: !homeProviderWatch.isMessages ? const Color(0xFFF6FBFF) : const Color(0xFF213241),
                   titleTextAlign: TextAlign.center,

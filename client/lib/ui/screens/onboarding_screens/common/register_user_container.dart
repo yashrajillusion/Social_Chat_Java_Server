@@ -1,25 +1,27 @@
+import 'package:chat_app/infrastructure/providers/provider_registration.dart';
 import 'package:chat_app/ui/common/common_app_text/common_app_text.dart';
 import 'package:chat_app/ui/common/input_text_field/input_text_field.dart';
-import 'package:chat_app/ui/screens/home_screens/home_chats_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-class RegisterUserContainer extends StatefulWidget {
+class RegisterUserContainer extends ConsumerStatefulWidget {
   const RegisterUserContainer({super.key});
 
   @override
-  State<RegisterUserContainer> createState() => _RegisterUserContainerState();
+  ConsumerState<RegisterUserContainer> createState() => _RegisterUserContainerState();
 }
 
 final _formKey = GlobalKey<FormState>();
 String email = '';
-String number = '';
+String firstName = '';
 String password = '';
 
-class _RegisterUserContainerState extends State<RegisterUserContainer> {
+class _RegisterUserContainerState extends ConsumerState<RegisterUserContainer> {
   @override
   Widget build(BuildContext context) {
+    final onboardingProviderRead = ref.read(onboardingProvider);
     return Form(
         key: _formKey,
         child: Column(
@@ -43,18 +45,10 @@ class _RegisterUserContainerState extends State<RegisterUserContainer> {
             ),
             const SizedBox(height: 20),
             InputTextField(
-              textFormFieldKey: const ValueKey('number'),
-              hintText: "Enter phone number",
-              validator: (value) {
-                if (value!.length != 10) {
-                  return 'Please Enter 10 digit phone number';
-                } else {
-                  return null;
-                }
-              },
+              hintText: "Enter name",
               onSaved: (value) {
                 setState(() {
-                  password = value!;
+                  firstName = value!;
                 });
               },
             ),
@@ -80,10 +74,14 @@ class _RegisterUserContainerState extends State<RegisterUserContainer> {
               onTap: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeChatsScreen()));
-
-                  // Navigator.pushNamed(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                  onboardingProviderRead.createAccount(
+                    context: context,
+                    firstName: firstName,
+                    lastName: '',
+                    phone: '',
+                    email: email,
+                    password: password,
+                  );
                 }
               },
               child: Container(
