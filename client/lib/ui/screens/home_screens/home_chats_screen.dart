@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:chat_app/infrastructure/providers/provider_registration.dart';
 import 'package:chat_app/ui/common/common_app_text/common_app_text.dart';
 import 'package:chat_app/ui/screens/chat_screen/chat_screen.dart';
@@ -49,10 +48,12 @@ class _HomeChatsScreenState extends ConsumerState<HomeChatsScreen> {
                             date: "",
                             count: "",
                             onTap: () {
+                              ref.read(onboardingProvider).getAllUsersChatsById(data.id ?? '');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ChatScreen(
+                                            chatid: data.id ?? '',
                                             avatarName: data.chatName?[0].toUpperCase() ?? '',
                                             subTitle: '',
                                             title: data.chatName ?? '',
@@ -78,10 +79,12 @@ class _HomeChatsScreenState extends ConsumerState<HomeChatsScreen> {
                                   date: "",
                                   count: "",
                                   onTap: () {
+                                    ref.read(onboardingProvider).getAllUsersChatsById(data?.id ?? '');
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => ChatScreen(
+                                                  chatid: data?.id ?? '',
                                                   avatarName: data?.firstName?[0].toUpperCase() ?? '',
                                                   subTitle: '',
                                                   title: '${data?.firstName} ${data?.firstName}',
