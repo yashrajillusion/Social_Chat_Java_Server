@@ -4,7 +4,10 @@ import 'package:chat_app/ui/screens/chat_screen/commons/chat_screen_appbar.dart'
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  final String title;
+  final String subTitle;
+  final String avatarName;
+  const ChatScreen({super.key, required this.title, required this.subTitle, required this.avatarName});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -19,7 +22,11 @@ class _ChatScreenState extends State<ChatScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFFE2EDF5),
         elevation: 0,
-        title: const ChatScreenAppbar(),
+        title: ChatScreenAppbar(
+          avatarName: widget.avatarName,
+          subTitle: widget.subTitle,
+          title: widget.title,
+        ),
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),

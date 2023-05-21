@@ -80,7 +80,6 @@ class AccountRepository {
           GetAllUsers.parseInfo,
           result.response,
         );
-        inspect(getAllUser);
         return ApiHttpResult.success(getAllUser);
       case APIStatus.ERROR:
         return ApiHttpResult.error(result.response);

@@ -9,6 +9,7 @@ import 'package:chat_app/infrastructure/models/response/create_account_response_
 import 'package:chat_app/infrastructure/models/response/get_all_users.dart';
 import 'package:chat_app/infrastructure/models/response/get_all_users_by_id_response_modal.dart';
 import 'package:chat_app/infrastructure/models/response/login_account_response_modal.dart';
+import 'package:chat_app/infrastructure/sharedprefs/sharedprefs.dart';
 import 'package:chat_app/ui/common/custom_loading/custom_loading.dart';
 import 'package:chat_app/ui/screens/home_screens/home_chats_screen.dart';
 import 'package:flutter/material.dart';
@@ -77,13 +78,14 @@ class OnboardingProvider extends ChangeNotifier {
     switch (response.status) {
       case APIStatus.SUCCESS:
         if (response.data != null && response.data is LoginAccountResponseModal) {
-          CustomLoading.progressDialog(isLoading: false, context: context);
           LoginAccountResponseModal signupConfirmResponse = response.data as LoginAccountResponseModal;
+          SharedPrefs.saveChatId(signupConfirmResponse.data?.id ?? '');
+          CustomLoading.progressDialog(isLoading: false, context: context);
           Logger().d(signupConfirmResponse.message);
 
           if (signupConfirmResponse.statusCode == 200 || signupConfirmResponse.statusCode == 201) {
             chatId = signupConfirmResponse.data?.id ?? '';
-            getAllUsersById();
+            getAllUsersById(chatId);
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const HomeChatsScreen()),
@@ -98,7 +100,6 @@ class OnboardingProvider extends ChangeNotifier {
         notifyListeners();
         break;
     }
-    // notifyListeners();
   }
 
   Future getAllUsers(BuildContext context) async {
@@ -124,8 +125,8 @@ class OnboardingProvider extends ChangeNotifier {
 
   List<GetUsersByIdData> allUsersbyIdDataList = [];
 
-  Future getAllUsersById() async {
-    ApiHttpResult response = await _accountRepository.getAllUsersById(chatId: chatId);
+  Future getAllUsersById(String chatIdd) async {
+    ApiHttpResult response = await _accountRepository.getAllUsersById(chatId: chatIdd);
     switch (response.status) {
       case APIStatus.SUCCESS:
         if (response.data != null && response.data is GetUsersByIdResponseModal) {
@@ -133,7 +134,6 @@ class OnboardingProvider extends ChangeNotifier {
           Logger().d(getAllUsers.message);
           if (getAllUsers.statusCode == 200 || getAllUsers.statusCode == 201) {
             allUsersbyIdDataList = getAllUsers.data!;
-            inspect(allUsersbyIdDataList);
             notifyListeners();
           }
         }
