@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ChatScreenAppbar extends StatefulWidget {
-  const ChatScreenAppbar({super.key});
+  final String title;
+  final String subTitle;
+  final String avatarName;
+  const ChatScreenAppbar({super.key, required this.title, required this.subTitle, required this.avatarName});
 
   @override
   State<ChatScreenAppbar> createState() => _ChatScreenAppbarState();
@@ -31,21 +34,25 @@ class _ChatScreenAppbarState extends State<ChatScreenAppbar> {
             color: const Color(0xFF424F63),
             borderRadius: BorderRadius.circular(100),
           ),
+          child: Center(
+            child: CommonAppText(
+              title: widget.avatarName,
+              fontSize: 20,
+              lineHeight: 0,
+              titleColor: Colors.white,
+            ),
+          ),
         ),
         const SizedBox(width: 10),
         Column(
           mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             CommonAppText(
-              title: "kevin.eth",
+              title: widget.title,
               fontSize: 20,
               fontWeight: FontWeight.w600,
-            ),
-            CommonAppText(
-              title: "kevin.eth",
-              fontSize: 14,
-              titleColor: Color(0xFF8593A8),
             ),
           ],
         ),

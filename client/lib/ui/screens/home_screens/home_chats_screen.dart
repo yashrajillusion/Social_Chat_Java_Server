@@ -20,7 +20,6 @@ class _HomeChatsScreenState extends ConsumerState<HomeChatsScreen> {
   Widget build(BuildContext context) {
     final homeProviderWatch = ref.watch(homeProvider);
     final onBoardingProviderWatch = ref.watch(onboardingProvider);
-    inspect(onBoardingProviderWatch.allUsersbyIdDataList);
     return Scaffold(
       backgroundColor: const Color(0xFFE2EDF5),
       body: Container(
@@ -40,17 +39,24 @@ class _HomeChatsScreenState extends ConsumerState<HomeChatsScreen> {
                         scrollDirection: Axis.vertical,
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
-                        itemCount: onBoardingProviderWatch.allUsersbyIdDataList?.length,
+                        itemCount: onBoardingProviderWatch.allUsersbyIdDataList.length,
                         itemBuilder: (context, i) {
-                          var data = onBoardingProviderWatch.allUsersbyIdDataList?[i];
+                          var data = onBoardingProviderWatch.allUsersbyIdDataList[i];
                           return ChatHomeScreenTile(
-                            firstCharAvatar: data?.chatName?[0].toUpperCase() ?? '',
-                            name: data?.chatName ?? '',
-                            message: data?.lastMessage?.message ?? '',
+                            firstCharAvatar: data.chatName?[0].toUpperCase() ?? '',
+                            name: data.chatName ?? '',
+                            message: data.lastMessage?.message ?? '',
                             date: "",
                             count: "",
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const ChatScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChatScreen(
+                                            avatarName: data.chatName?[0].toUpperCase() ?? '',
+                                            subTitle: '',
+                                            title: data.chatName ?? '',
+                                          )));
                             },
                           );
                         },
@@ -72,7 +78,14 @@ class _HomeChatsScreenState extends ConsumerState<HomeChatsScreen> {
                                   date: "",
                                   count: "",
                                   onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ChatScreen()));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ChatScreen(
+                                                  avatarName: data?.firstName?[0].toUpperCase() ?? '',
+                                                  subTitle: '',
+                                                  title: '${data?.firstName} ${data?.firstName}',
+                                                )));
                                   },
                                 );
                               },
