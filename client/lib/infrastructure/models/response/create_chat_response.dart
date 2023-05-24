@@ -1,21 +1,16 @@
 import 'package:logger/logger.dart';
 
-class GetAllMessagesByIdResponse {
+class CreateChatResponse {
   int? statusCode;
   String? message;
-  List<GetAllMessagesByIdData>? data;
+  Data? data;
 
-  GetAllMessagesByIdResponse({this.statusCode, this.message, this.data});
+  CreateChatResponse({this.statusCode, this.message, this.data});
 
-  GetAllMessagesByIdResponse.fromJson(Map<String, dynamic> json) {
+  CreateChatResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['statusCode'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <GetAllMessagesByIdData>[];
-      json['data'].forEach((v) {
-        data!.add(GetAllMessagesByIdData.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -23,14 +18,14 @@ class GetAllMessagesByIdResponse {
     data['statusCode'] = statusCode;
     data['message'] = message;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 
-  static Future<GetAllMessagesByIdResponse?> parseInfo(Map<String, dynamic>? json) async {
+  static Future<CreateChatResponse?> parseInfo(Map<String, dynamic>? json) async {
     try {
-      return GetAllMessagesByIdResponse.fromJson(json!);
+      return CreateChatResponse.fromJson(json!);
     } catch (e) {
       Logger().e("get all users chat by id data parseInfo exception : $e");
       return null;
@@ -38,40 +33,40 @@ class GetAllMessagesByIdResponse {
   }
 }
 
-class GetAllMessagesByIdData {
+class Data {
   String? id;
-  Sender? sender;
-  Null senderId;
-  Null chatId;
-  String? message;
+  String? chatName;
+  bool? isGroupChat;
+  List<Members>? members;
+  Null lastMessage;
   String? createdAt;
 
-  GetAllMessagesByIdData({this.id, this.sender, this.senderId, this.chatId, this.message, this.createdAt});
+  Data({this.id, this.chatName, this.isGroupChat, this.members, this.lastMessage, this.createdAt});
 
-  GetAllMessagesByIdData.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    sender = json['sender'] != null ? Sender.fromJson(json['sender']) : null;
-    senderId = json['senderId'];
-    chatId = json['chatId'];
-    message = json['message'];
+    chatName = json['chatName'];
+    isGroupChat = json['isGroupChat'];
+    lastMessage = json['lastMessage'];
     createdAt = json['createdAt'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    if (sender != null) {
-      data['sender'] = sender!.toJson();
+    data['chatName'] = chatName;
+    data['isGroupChat'] = isGroupChat;
+    if (members != null) {
+      data['members'] = members!.map((v) => v.toJson()).toList();
     }
-    data['senderId'] = senderId;
-    data['chatId'] = chatId;
-    data['message'] = message;
+
+    data['lastMessage'] = lastMessage;
     data['createdAt'] = createdAt;
     return data;
   }
 }
 
-class Sender {
+class Members {
   String? id;
   String? firstName;
   String? lastName;
@@ -81,9 +76,9 @@ class Sender {
   String? avatarUrl;
   String? createdAt;
 
-  Sender({this.id, this.firstName, this.lastName, this.phone, this.email, this.password, this.avatarUrl, this.createdAt});
+  Members({this.id, this.firstName, this.lastName, this.phone, this.email, this.password, this.avatarUrl, this.createdAt});
 
-  Sender.fromJson(Map<String, dynamic> json) {
+  Members.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     firstName = json['firstName'];
     lastName = json['lastName'];

@@ -34,12 +34,15 @@ class _ChatScreenAppbarState extends State<ChatScreenAppbar> {
             color: const Color(0xFF424F63),
             borderRadius: BorderRadius.circular(100),
           ),
-          child: Center(
-            child: CommonAppText(
-              title: widget.avatarName,
-              fontSize: 20,
-              lineHeight: 0,
-              titleColor: Colors.white,
+          child: Container(
+            padding: const EdgeInsets.only(left: 4),
+            child: Center(
+              child: CommonAppText(
+                title: widget.avatarName,
+                fontSize: 20,
+                lineHeight: 0,
+                titleColor: Colors.white,
+              ),
             ),
           ),
         ),
@@ -50,7 +53,7 @@ class _ChatScreenAppbarState extends State<ChatScreenAppbar> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CommonAppText(
-              title: widget.title,
+              title: widget.title.toUpperCase(),
               fontSize: 20,
               fontWeight: FontWeight.w600,
             ),

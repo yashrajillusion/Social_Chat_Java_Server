@@ -1,12 +1,12 @@
-import 'dart:developer';
-
 import 'package:chat_app/infrastructure/data_access_layer/networks/api_response.dart';
 import 'package:chat_app/infrastructure/data_access_layer/networks/repositories/account_repository.dart';
 import 'package:chat_app/infrastructure/models/request/create_account_request_modal.dart';
+import 'package:chat_app/infrastructure/models/request/create_chat_request.dart';
 import 'package:chat_app/infrastructure/models/request/login_account_request_modal.dart';
 import 'package:chat_app/infrastructure/models/request/send_message_request.dart';
 import 'package:chat_app/infrastructure/models/response/common_error_response_model.dart';
 import 'package:chat_app/infrastructure/models/response/create_account_response_modal.dart';
+import 'package:chat_app/infrastructure/models/response/create_chat_response.dart';
 import 'package:chat_app/infrastructure/models/response/get_all_messages_by_id_response.dart';
 import 'package:chat_app/infrastructure/models/response/get_all_users.dart';
 import 'package:chat_app/infrastructure/models/response/get_all_users_by_id_response_modal.dart';
@@ -27,6 +27,11 @@ class OnboardingProvider extends ChangeNotifier {
   List<GetAllMessagesByIdData>? allMessagesById;
   bool isLogin = true;
   String chatId = '';
+
+  setChatId(String value) {
+    chatId = value;
+    notifyListeners();
+  }
 
   setIsLogin(bool value) {
     isLogin = value;
@@ -54,13 +59,16 @@ class OnboardingProvider extends ChangeNotifier {
     switch (response.status) {
       case APIStatus.SUCCESS:
         if (response.data != null && response.data is CreateAccountResponsemodal) {
+          CreateAccountResponsemodal signupConfirmResponse = response.data as CreateAccountResponsemodal;
+
+          SharedPrefs.saveChatId(signupConfirmResponse.data?.id ?? '');
           CustomLoading.progressDialog(isLoading: false, context: context);
           Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeChatsScreen()));
         }
         break;
       case APIStatus.ERROR:
         CustomLoading.progressDialog(isLoading: false, context: context);
-        Logger().d("Api fail on confirm code ");
+        Logger().d("Api fail on create account ");
         // CommonErrorResponseModel signUpErrorResponseModel = CommonErrorResponseModel.fromJson(response.data);
         notifyListeners();
         break;
@@ -115,6 +123,7 @@ class OnboardingProvider extends ChangeNotifier {
           Logger().d(getAllUsers.message);
           if (getAllUsers.statusCode == 200 || getAllUsers.statusCode == 201) {
             allUsersDataList = getAllUsers.data;
+            notifyListeners();
           }
         }
         break;
@@ -159,7 +168,6 @@ class OnboardingProvider extends ChangeNotifier {
           Logger().d(getAllUsers.message);
           if (getAllUsers.statusCode == 200 || getAllUsers.statusCode == 201) {
             allMessagesById = getAllUsers.data;
-            inspect(getAllUsers.data);
             notifyListeners();
           }
         }
@@ -187,10 +195,36 @@ class OnboardingProvider extends ChangeNotifier {
 
     switch (response.status) {
       case APIStatus.SUCCESS:
-        if (response.data != null && response.data is SendMessageResponseModal) {}
+        if (response.data != null && response.data is SendMessageResponseModal) {
+          SendMessageResponseModal sendMessageResponse = response.data as SendMessageResponseModal;
+          return sendMessageResponse.data?.toJson();
+        }
         break;
       case APIStatus.ERROR:
-        Logger().d("Api fail on confirm code ");
+        Logger().d("Api fail to send message ");
+        notifyListeners();
+        break;
+    }
+  }
+
+  Future createChat({
+    required String memberId1,
+  }) async {
+    CreateChatRequest sendMessgeRequest = CreateChatRequest(
+      isGroupChat: false,
+      membersId: [chatId, memberId1],
+    );
+    ApiHttpResult response = await _accountRepository.createChat(sendMessgeRequest.prepareRequest());
+
+    switch (response.status) {
+      case APIStatus.SUCCESS:
+        if (response.data != null && response.data is CreateChatResponse) {
+          CreateChatResponse getAllUsers = response.data as CreateChatResponse;
+          return getAllUsers.data?.id;
+        }
+        break;
+      case APIStatus.ERROR:
+        Logger().d("Api fail to create chat ");
         notifyListeners();
         break;
     }

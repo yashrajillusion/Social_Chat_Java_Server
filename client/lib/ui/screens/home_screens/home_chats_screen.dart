@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chat_app/infrastructure/providers/provider_registration.dart';
 import 'package:chat_app/ui/common/common_app_text/common_app_text.dart';
 import 'package:chat_app/ui/screens/chat_screen/chat_screen.dart';
@@ -31,75 +33,101 @@ class _HomeChatsScreenState extends ConsumerState<HomeChatsScreen> {
             const SizedBox(height: 30),
             const SwitchingCapsule(),
             const SizedBox(height: 28),
-            if (onBoardingProviderWatch.allUsersbyIdDataList.isNotEmpty)
-              homeProviderWatch.isMessages
-                  ? Expanded(
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        itemCount: onBoardingProviderWatch.allUsersbyIdDataList.length,
-                        itemBuilder: (context, i) {
-                          var data = onBoardingProviderWatch.allUsersbyIdDataList[i];
-                          return ChatHomeScreenTile(
-                            firstCharAvatar: data.chatName?[0].toUpperCase() ?? '',
-                            name: data.chatName ?? '',
-                            message: data.lastMessage?.message ?? '',
-                            date: "",
-                            count: "",
-                            onTap: () {
-                              ref.read(onboardingProvider).getAllUsersChatsById(data.id ?? '');
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ChatScreen(
-                                            chatid: data.id ?? '',
-                                            avatarName: data.chatName?[0].toUpperCase() ?? '',
-                                            subTitle: '',
-                                            title: data.chatName ?? '',
-                                          )));
+            homeProviderWatch.isMessages
+                ? Expanded(
+                    child: onBoardingProviderWatch.allUsersbyIdDataList.isNotEmpty
+                        ? ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemCount: onBoardingProviderWatch.allUsersbyIdDataList.length,
+                            itemBuilder: (context, i) {
+                              var data = onBoardingProviderWatch.allUsersbyIdDataList[i];
+                              inspect(data);
+                              return ChatHomeScreenTile(
+                                firstCharAvatar: data.isGroupChat!
+                                    ? data.chatName![0]
+                                    : data.members?[0].id == ref.watch(onboardingProvider).chatId
+                                        ? '${data.members?[1].firstName?[0].toUpperCase()}'
+                                        : data.members?[0].firstName?[0].toUpperCase() ?? '',
+                                name: data.isGroupChat!
+                                    ? data.chatName ?? ""
+                                    : data.members?[0].id == ref.watch(onboardingProvider).chatId
+                                        ? '${data.members?[1].firstName} ${data.members?[1].lastName}'
+                                        : '${data.members?[0].firstName} ${data.members?[0].lastName}',
+                                message: data.lastMessage?.message ?? '',
+                                date: "",
+                                count: "",
+                                onTap: () {
+                                  ref.read(onboardingProvider).getAllUsersChatsById(data.id ?? '');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ChatScreen(
+                                                chatid: data.id ?? '',
+                                                avatarName: data.isGroupChat!
+                                                    ? data.chatName![0]
+                                                    : data.members?[0].id == ref.watch(onboardingProvider).chatId
+                                                        ? '${data.members?[1].firstName?[0].toUpperCase()}'
+                                                        : '${data.members?[0].firstName?[0].toUpperCase()} ',
+                                                subTitle: '',
+                                                title: data.isGroupChat!
+                                                    ? data.chatName ?? ""
+                                                    : data.members?[0].id == ref.watch(onboardingProvider).chatId
+                                                        ? '${data.members?[1].firstName} ${data.members?[1].lastName}'
+                                                        : '${data.members?[0].firstName} ${data.members?[0].lastName}',
+                                                members: data.members ?? [],
+                                              )));
+                                },
+                              );
                             },
-                          );
-                        },
-                      ),
-                    )
-                  : Expanded(
-                      child: onBoardingProviderWatch.allUsersDataList!.isNotEmpty
-                          ? ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              itemCount: onBoardingProviderWatch.allUsersDataList?.length,
-                              itemBuilder: (context, i) {
-                                var data = onBoardingProviderWatch.allUsersDataList?[i];
-                                return ChatHomeScreenTile(
-                                  firstCharAvatar: data?.firstName?[0].toUpperCase() ?? '',
-                                  name: '${data?.firstName} ${data?.firstName}',
-                                  message: data?.email ?? '',
-                                  date: "",
-                                  count: "",
-                                  onTap: () {
-                                    ref.read(onboardingProvider).getAllUsersChatsById(data?.id ?? '');
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ChatScreen(
-                                                  chatid: data?.id ?? '',
-                                                  avatarName: data?.firstName?[0].toUpperCase() ?? '',
-                                                  subTitle: '',
-                                                  title: '${data?.firstName} ${data?.firstName}',
-                                                )));
-                                  },
-                                );
-                              },
-                            )
-                          : Container(
-                              child: CommonAppText(
-                                title: "No Contacts Found",
-                                fontSize: 22,
-                              ),
+                          )
+                        : Container(
+                            child: CommonAppText(
+                              title: "No Contacts Found",
+                              fontSize: 22,
                             ),
-                    )
+                          ),
+                  )
+                : Expanded(
+                    child: onBoardingProviderWatch.allUsersDataList!.isNotEmpty
+                        ? ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemCount: onBoardingProviderWatch.allUsersDataList?.length,
+                            itemBuilder: (context, i) {
+                              var data = onBoardingProviderWatch.allUsersDataList?[i];
+                              return ChatHomeScreenTile(
+                                firstCharAvatar: data?.firstName?[0].toUpperCase() ?? '',
+                                name: '${data?.firstName} ${data?.lastName}',
+                                message: data?.email ?? '',
+                                date: "",
+                                count: "",
+                                onTap: () async {
+                                  var chatIdd = await ref.read(onboardingProvider).createChat(memberId1: data?.id ?? '');
+                                  await ref.read(onboardingProvider).getAllUsersChatsById(data?.id ?? '');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ChatScreen(
+                                                chatid: chatIdd ?? '',
+                                                avatarName: data?.firstName?[0].toUpperCase() ?? '',
+                                                subTitle: '',
+                                                title: '${data?.firstName} ${data?.lastName}',
+                                                members: [],
+                                              )));
+                                },
+                              );
+                            },
+                          )
+                        : Container(
+                            child: CommonAppText(
+                              title: "No Contacts Found",
+                              fontSize: 22,
+                            ),
+                          ),
+                  )
             // : Container(
             //     child: CommonAppText(
             //       title: "No Users Found",

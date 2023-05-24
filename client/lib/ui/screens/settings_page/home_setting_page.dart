@@ -1,15 +1,17 @@
+import 'package:chat_app/infrastructure/sharedprefs/sharedprefs.dart';
 import 'package:chat_app/ui/common/common_app_text/common_app_text.dart';
+import 'package:chat_app/ui/screens/settings_page/settings_page.dart';
+import 'package:chat_app/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+class HomeSettingPage extends StatefulWidget {
+  const HomeSettingPage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<HomeSettingPage> createState() => _HomeSettingPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _HomeSettingPageState extends State<HomeSettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,47 +80,24 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           const SizedBox(height: 32),
-          SettingsTile(title: "Edit Profile", icon: 'assets/images/edit_icon.svg', onTap: () {}),
-          const SizedBox(height: 26),
-          SettingsTile(title: "Blocked users", icon: 'assets/images/block_user.svg', onTap: () {}),
-          const SizedBox(height: 26),
-          SettingsTile(title: "Delete account", icon: 'assets/images/delete_icon.svg', onTap: () {}),
-          const SizedBox(height: 26),
-          SettingsTile(title: "Privacy policy", icon: 'assets/images/privacy_policy.svg', onTap: () {}),
-          const SizedBox(height: 26),
+          // SettingsTile(title: "Edit Profile", icon: 'assets/images/edit_icon.svg', onTap: () {}),
+          // const SizedBox(height: 26),
+          // SettingsTile(title: "Blocked users", icon: 'assets/images/block_user.svg', onTap: () {}),
+          // const SizedBox(height: 26),
+          // SettingsTile(title: "Delete account", icon: 'assets/images/delete_icon.svg', onTap: () {}),
+          // const SizedBox(height: 26),
+          // SettingsTile(title: "Privacy policy", icon: 'assets/images/privacy_policy.svg', onTap: () {}),
+          // const SizedBox(height: 26),
           SettingsTile(title: "Terms & condition", icon: 'assets/images/terms_condition.svg', onTap: () {}),
           const SizedBox(height: 26),
-          SettingsTile(title: "Logout", icon: 'assets/images/logout_icon.svg', onTap: () {}),
+          SettingsTile(
+              title: "Logout",
+              icon: 'assets/images/logout_icon.svg',
+              onTap: () {
+                SharedPrefs.clearAllPref();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen()));
+              }),
         ],
-      ),
-    );
-  }
-}
-
-class SettingsTile extends StatelessWidget {
-  final String title;
-  final String icon;
-  final VoidCallback onTap;
-  const SettingsTile({super.key, required this.title, required this.icon, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Row(
-          children: [
-            SvgPicture.asset(icon),
-            const SizedBox(width: 8),
-            CommonAppText(
-              title: title,
-              fontSize: 16,
-            ),
-            const Spacer(),
-            SvgPicture.asset('assets/images/setting__next_icon.svg'),
-          ],
-        ),
       ),
     );
   }

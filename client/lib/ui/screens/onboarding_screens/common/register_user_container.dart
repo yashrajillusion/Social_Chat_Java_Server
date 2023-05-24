@@ -110,11 +110,14 @@ class _RegisterUserContainerState extends ConsumerState<RegisterUserContainer> {
             const SizedBox(height: 10),
             RichText(
               text: TextSpan(
-                text: "You have  account? ",
+                text: "You have account? ",
                 style: const TextStyle(color: Color(0xFF213241)),
                 children: [
                   TextSpan(
-                    recognizer: TapGestureRecognizer()..onTap = () {},
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        ref.read(onboardingProvider).setIsLogin(true);
+                      },
                     text: "LogIn",
                     style: const TextStyle(fontWeight: FontWeight.w600),
                   ),

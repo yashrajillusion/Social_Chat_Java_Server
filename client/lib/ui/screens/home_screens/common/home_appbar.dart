@@ -1,4 +1,5 @@
 import 'package:chat_app/ui/common/common_app_text/common_app_text.dart';
+import 'package:chat_app/ui/screens/settings_page/home_setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -23,7 +24,15 @@ class _HomeAppbarState extends State<HomeAppbar> {
         const Spacer(),
         SvgPicture.asset("assets/images/search_icon.svg"),
         const SizedBox(width: 16),
-        SvgPicture.asset("assets/images/settings_icon.svg"),
+        GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeSettingPage(),
+                  ));
+            },
+            child: SvgPicture.asset("assets/images/settings_icon.svg")),
       ],
     );
   }

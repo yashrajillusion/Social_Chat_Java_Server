@@ -19,7 +19,7 @@ class GetUsersByIdResponseModal {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['statusCode'] = statusCode;
     data['message'] = message;
     if (this.data != null) {
@@ -42,7 +42,7 @@ class GetUsersByIdData {
   String? id;
   String? chatName;
   bool? isGroupChat;
-  List<Members>? members;
+  List<MembersOfChats>? members;
   LastMessage? lastMessage;
   String? createdAt;
 
@@ -53,9 +53,9 @@ class GetUsersByIdData {
     chatName = json['chatName'];
     isGroupChat = json['isGroupChat'];
     if (json['members'] != null) {
-      members = <Members>[];
+      members = <MembersOfChats>[];
       json['members'].forEach((v) {
-        members!.add(Members.fromJson(v));
+        members!.add(MembersOfChats.fromJson(v));
       });
     }
 
@@ -64,7 +64,7 @@ class GetUsersByIdData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['chatName'] = chatName;
     data['isGroupChat'] = isGroupChat;
@@ -79,7 +79,7 @@ class GetUsersByIdData {
   }
 }
 
-class Members {
+class MembersOfChats {
   String? id;
   String? firstName;
   String? lastName;
@@ -89,9 +89,9 @@ class Members {
   String? avatarUrl;
   String? createdAt;
 
-  Members({this.id, this.firstName, this.lastName, this.phone, this.email, this.password, this.avatarUrl, this.createdAt});
+  MembersOfChats({this.id, this.firstName, this.lastName, this.phone, this.email, this.password, this.avatarUrl, this.createdAt});
 
-  Members.fromJson(Map<String, dynamic> json) {
+  MembersOfChats.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     firstName = json['firstName'];
     lastName = json['lastName'];
@@ -103,7 +103,7 @@ class Members {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['firstName'] = firstName;
     data['lastName'] = lastName;
@@ -118,7 +118,7 @@ class Members {
 
 class LastMessage {
   String? id;
-  Members? sender;
+  MembersOfChats? sender;
   Null? senderId;
   Null? chatId;
   String? message;
@@ -128,7 +128,7 @@ class LastMessage {
 
   LastMessage.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    sender = json['sender'] != null ? Members.fromJson(json['sender']) : null;
+    sender = json['sender'] != null ? MembersOfChats.fromJson(json['sender']) : null;
     senderId = json['senderId'];
     chatId = json['chatId'];
     message = json['message'];
@@ -136,7 +136,7 @@ class LastMessage {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     if (sender != null) {
       data['sender'] = sender!.toJson();

@@ -44,6 +44,8 @@ class _SwitchingCapsuleState extends ConsumerState<SwitchingCapsule> {
           Expanded(
             child: GestureDetector(
               onTap: () {
+                ref.read(onboardingProvider).getAllUsers(context);
+
                 homeProviderRead.setIsMessgaes(false);
               },
               child: Container(
