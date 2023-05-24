@@ -41,6 +41,8 @@ dependencies:
   lottie: ^2.3.2
   shared_preferences: ^2.1.1
   intl: ^0.18.1
+  web_socket_channel: ^2.4.0
+  socket_io_client: ^2.0.2
 
 dev_dependencies:
   flutter_test:

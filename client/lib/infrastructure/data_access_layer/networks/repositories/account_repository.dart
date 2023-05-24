@@ -5,6 +5,7 @@ import 'package:chat_app/infrastructure/data_access_layer/networks/api_response.
 import 'package:chat_app/infrastructure/data_access_layer/networks/api_response_provider.dart';
 import 'package:chat_app/infrastructure/data_access_layer/networks/application_error.dart';
 import 'package:chat_app/infrastructure/models/response/create_account_response_modal.dart';
+import 'package:chat_app/infrastructure/models/response/create_chat_response.dart';
 import 'package:chat_app/infrastructure/models/response/get_all_messages_by_id_response.dart';
 import 'package:chat_app/infrastructure/models/response/get_all_users.dart';
 import 'package:chat_app/infrastructure/models/response/get_all_users_by_id_response_modal.dart';
@@ -152,6 +153,32 @@ class AccountRepository {
       case APIStatus.SUCCESS:
         var createAccountResponse = await compute(
           SendMessageResponseModal.parseInfo,
+          result.response,
+        );
+        return ApiHttpResult.success(createAccountResponse);
+      case APIStatus.ERROR:
+        return ApiHttpResult.error(result.response);
+      default:
+        ApplicationError applicationError = ApplicationError(errorType: ErrorType.genericError.messageString);
+        return ApiHttpResult.error(applicationError);
+    }
+  }
+
+  Future<ApiHttpResult> createChat(
+    Object requestParams,
+  ) async {
+    const createChatUrl = '${ApiConstants.baseUrl}/chat';
+    final uri = Uri.parse(createChatUrl);
+
+    APIResponse result = await _apiResponseProvider.post(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: requestParams,
+    );
+    switch (result.status) {
+      case APIStatus.SUCCESS:
+        var createAccountResponse = await compute(
+          CreateChatResponse.parseInfo,
           result.response,
         );
         return ApiHttpResult.success(createAccountResponse);

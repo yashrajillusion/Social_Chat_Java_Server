@@ -25,6 +25,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         child: Column(
           children: [
             const Spacer(),
+            Image.asset("assets/images/image_icon.png"),
             const OnboardingTabbar(),
             onboardingProviderWatch.isLogin ? const LoginUserContainer() : const RegisterUserContainer(),
           ],
