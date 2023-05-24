@@ -1,16 +1,17 @@
+import 'package:chat_app/infrastructure/models/response/get_all_messages_by_id_response.dart';
 import 'package:logger/logger.dart';
 
 class SendMessageResponseModal {
   int? statusCode;
   String? message;
-  Data? data;
+  GetAllMessagesByIdData? data;
 
   SendMessageResponseModal({this.statusCode, this.message, this.data});
 
   SendMessageResponseModal.fromJson(Map<String, dynamic> json) {
     statusCode = json['statusCode'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? GetAllMessagesByIdData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -30,39 +31,6 @@ class SendMessageResponseModal {
       Logger().e("Login user parseInfo exception : $e");
       return null;
     }
-  }
-}
-
-class Data {
-  String? id;
-  Sender? sender;
-  String? senderId;
-  String? chatId;
-  String? message;
-  String? createdAt;
-
-  Data({this.id, this.sender, this.senderId, this.chatId, this.message, this.createdAt});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    sender = json['sender'] != null ? Sender.fromJson(json['sender']) : null;
-    senderId = json['senderId'];
-    chatId = json['chatId'];
-    message = json['message'];
-    createdAt = json['createdAt'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    if (sender != null) {
-      data['sender'] = sender!.toJson();
-    }
-    data['senderId'] = senderId;
-    data['chatId'] = chatId;
-    data['message'] = message;
-    data['createdAt'] = createdAt;
-    return data;
   }
 }
 

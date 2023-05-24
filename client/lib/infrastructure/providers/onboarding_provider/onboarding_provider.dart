@@ -27,6 +27,26 @@ class OnboardingProvider extends ChangeNotifier {
   List<GetAllMessagesByIdData>? allMessagesById;
   bool isLogin = true;
   String chatId = '';
+  final controller = ScrollController();
+
+  String personalChatId = '';
+
+  addMessagesFromSocket(data) {
+    if (data is GetAllMessagesByIdData) {
+      allMessagesById?.add(data);
+    } else {
+      allMessagesById?.add(GetAllMessagesByIdData.fromJson(data));
+    }
+    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controller.jumpTo(controller.position.maxScrollExtent);
+    });
+  }
+
+  setPersonalChatId(String value) {
+    personalChatId = value;
+    notifyListeners();
+  }
 
   setChatId(String value) {
     chatId = value;
@@ -197,6 +217,7 @@ class OnboardingProvider extends ChangeNotifier {
       case APIStatus.SUCCESS:
         if (response.data != null && response.data is SendMessageResponseModal) {
           SendMessageResponseModal sendMessageResponse = response.data as SendMessageResponseModal;
+          addMessagesFromSocket(sendMessageResponse.data);
           return sendMessageResponse.data?.toJson();
         }
         break;
