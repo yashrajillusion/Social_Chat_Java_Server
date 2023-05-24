@@ -25,6 +25,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   getShare() async {
     var temp = await SharedPrefs.getChatId() ?? '';
     if (temp.isNotEmpty) {
+      ref.read(onboardingProvider).setPersonalChatId(temp);
       ref.read(onboardingProvider).setChatId(temp);
       ref.read(onboardingProvider).getAllUsersById(temp);
       ref.read(onboardingProvider).getAllUsers(context);

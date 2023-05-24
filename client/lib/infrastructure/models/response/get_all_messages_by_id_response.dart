@@ -41,8 +41,8 @@ class GetAllMessagesByIdResponse {
 class GetAllMessagesByIdData {
   String? id;
   Sender? sender;
-  Null senderId;
-  Null chatId;
+  String? senderId;
+  String? chatId;
   String? message;
   String? createdAt;
 
