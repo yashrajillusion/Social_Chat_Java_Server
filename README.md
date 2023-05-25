@@ -4,6 +4,16 @@ Advanced Java Spring backend server integrated with Socket.IO WebSocket for real
 Backend API Documentation: [Click here to view](https://mahogany-pharaoh-f89.notion.site/Social-Chat-1e366850732249e287668f705de02a79)
 
 ### Technologies that we used to create Fronted Applications :-
+1. Java
+2. Spring Boot
+3. Hibernate
+4. Postgress
+5. Socket IO
+6. Node
+7. Express
+8. Docker
+
+### Technologies that we used to create Fronted Applications :-
 1. Flutter
 2. Dart
 3. Riverpod
