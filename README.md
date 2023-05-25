@@ -11,11 +11,11 @@ Backend API Documentation: [Click here to view](https://mahogany-pharaoh-f89.not
 5. Shared Preferences
 6. Lottie Animation
 
-Project Link - [Project Repo]()
+Project Link - [Project Repo](https://github.com/yashrajillusion/Social_Chat_Java_Server)
 
-Project Demo Viedo - [Project Demo Viedo]()
+Project Demo Viedo - [Project Demo Viedo](https://drive.google.com/file/d/1FM7BG2FgB_5wkSvK2FIRR0m6x7zlaT23/view?usp=sharing)
 
-Project Apk Link - [Project Apk Link]()
+Project Apk Link - [Project Apk Link](https://drive.google.com/file/d/1_fWNNQKeNHfxICf7Tp7nO7pZboXwj9Ld/view?usp=sharing)
 
 # Glimpse of Our Work:-
 
@@ -42,5 +42,9 @@ Project Apk Link - [Project Apk Link]()
 
 ## Overview
 <img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/06174412-e136-455e-992b-5355e9b963fc">.  <img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/e2c731bb-d34b-4d14-bb20-03a0c2db8d82">
+
+
+https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/96105012/ee9fd6fd-0470-4258-b055-460389643533
+
 
 
