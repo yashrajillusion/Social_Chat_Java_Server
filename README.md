@@ -20,28 +20,30 @@ Project Apk Link - [Project Apk Link](https://drive.google.com/file/d/1_fWNNQKeN
 # Glimpse of Our Work:-
 
 ## Login Screen
-<img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/b3083e55-2b51-420e-a67c-ab06809d5f74">
+<img width="25%" height="25%" alt="image" src="https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/95868808/57f27b06-ab12-4438-92f3-cac4eab17371">
 
 ## Registration Screen
-<img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/2a26426b-ce52-4cbc-aa2c-f3c82be818d4">
+<img width="25%" height="25%" alt="image" src="https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/95868808/5f679f76-cf65-4414-8f2e-ccca08037b0c">
 
 ## Users Chat List Screen
-<img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/8bfc4f72-e9b3-420b-9ab1-b651ecb0aff3">
+<img width="25%" height="25%" alt="image" src="https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/95868808/212fbd27-b345-4520-975f-06eec1ae18a7">
+
 
 ## All Users List Screen 
-<img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/a3bfaa34-5d2a-4e2b-b1c5-82939d0fa566">
+<img width="25%" height="25%" alt="image" src="https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/95868808/1a65895b-2343-4613-906a-17e3c3c8fc7c">
 
 ## Chat Screen
-<img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/222b4581-e092-4468-8603-7bec29acb300">
+<img width="25%" height="25%" alt="image" src="https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/95868808/752c448e-d0a4-4846-afbd-82b2bd61a2fe">
 
 ## Profile Screen
-<img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/ee39a03e-478e-4aac-a348-814bab042168">
+<img width="25%" height="25%" alt="image" src="https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/95868808/efd4944f-28b9-49e5-8420-ac9568e3c5e7">
 
 ## Chat Settings Screen
-<img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/bcf4e207-060e-4ec4-8105-57b71795420d">
+<img width="25%" height="25%" alt="image" src="https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/95868808/5c01c537-a0ed-4fe3-91ab-488818661492">
+
 
 ## Overview
-<img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/06174412-e136-455e-992b-5355e9b963fc">.  <img width="25%" height="25%" alt="image" src="https://github.com/PranavDalvi9/pranav_portfolio/assets/96105012/e2c731bb-d34b-4d14-bb20-03a0c2db8d82">
+<img width="25%" height="25%" alt="image" src="https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/95868808/1a4ff31e-d34a-45b2-9c39-120156d9149d">.  <img width="25%" height="25%" alt="image" src="https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/95868808/3e087b87-3c14-4532-8c43-3086b44ac350">
 
 
 https://github.com/yashrajillusion/Social_Chat_Java_Server/assets/96105012/ee9fd6fd-0470-4258-b055-460389643533
