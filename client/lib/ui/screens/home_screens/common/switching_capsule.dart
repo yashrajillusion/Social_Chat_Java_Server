@@ -23,6 +23,7 @@ class _SwitchingCapsuleState extends ConsumerState<SwitchingCapsule> {
           Expanded(
             child: GestureDetector(
               onTap: () {
+                ref.read(onboardingProvider).getAllUsersById(ref.watch(onboardingProvider).chatId);
                 homeProviderRead.setIsMessgaes(true);
               },
               child: Container(

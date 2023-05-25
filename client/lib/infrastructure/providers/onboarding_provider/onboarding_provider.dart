@@ -14,6 +14,7 @@ import 'package:chat_app/infrastructure/models/response/login_account_response_m
 import 'package:chat_app/infrastructure/models/response/send_message_response_modal.dart';
 import 'package:chat_app/infrastructure/sharedprefs/sharedprefs.dart';
 import 'package:chat_app/ui/common/custom_loading/custom_loading.dart';
+import 'package:chat_app/ui/common/snackbar/snackbar.dart';
 import 'package:chat_app/ui/screens/home_screens/home_chats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -89,6 +90,8 @@ class OnboardingProvider extends ChangeNotifier {
       case APIStatus.ERROR:
         CustomLoading.progressDialog(isLoading: false, context: context);
         Logger().d("Api fail on create account ");
+        CommonErrorResponseModel signUpErrorResponseModel = CommonErrorResponseModel.fromJson(response.data);
+        showSnackbar(context, Colors.red, signUpErrorResponseModel.message);
         // CommonErrorResponseModel signUpErrorResponseModel = CommonErrorResponseModel.fromJson(response.data);
         notifyListeners();
         break;
@@ -128,7 +131,8 @@ class OnboardingProvider extends ChangeNotifier {
       case APIStatus.ERROR:
         CustomLoading.progressDialog(isLoading: false, context: context);
         Logger().d("Api fail on confirm code ");
-        // CommonErrorResponseModel signUpErrorResponseModel = CommonErrorResponseModel.fromJson(response.data);
+        CommonErrorResponseModel signUpErrorResponseModel = CommonErrorResponseModel.fromJson(response.data);
+        showSnackbar(context, Colors.red, signUpErrorResponseModel.message);
         notifyListeners();
         break;
     }

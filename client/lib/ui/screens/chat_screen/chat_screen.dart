@@ -123,24 +123,28 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                       controller: sendMessageController,
                       hintText: "Type here...",
                       onFieldSubmitted: (newValue) async {
-                        onboardingProviderRead.sentMessage(
+                        var data = await onboardingProviderRead.sentMessage(
                           context: context,
                           senderId: ref.watch(onboardingProvider).personalChatId,
                           chatId: widget.chatid,
                           message: sendMessageController.text,
                         );
+                        data["members"] = widget.members;
+                        sendMessage(data);
                         sendMessageController.clear();
                       },
                     ),
                     const SizedBox(width: 20),
                     GestureDetector(
-                      onTap: () {
-                        onboardingProviderRead.sentMessage(
+                      onTap: () async {
+                        var data = await onboardingProviderRead.sentMessage(
                           context: context,
                           senderId: ref.watch(onboardingProvider).personalChatId,
                           chatId: widget.chatid,
                           message: sendMessageController.text,
                         );
+                        data["members"] = widget.members;
+                        sendMessage(data);
                         sendMessageController.clear();
                       },
                       child: Container(

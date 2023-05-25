@@ -95,7 +95,7 @@ class _HomeSettingPageState extends State<HomeSettingPage> {
               icon: 'assets/images/logout_icon.svg',
               onTap: () {
                 SharedPrefs.clearAllPref();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const SplashScreen()));
               }),
         ],
       ),

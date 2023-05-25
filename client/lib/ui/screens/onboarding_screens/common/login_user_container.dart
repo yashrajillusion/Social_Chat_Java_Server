@@ -82,7 +82,7 @@ class _LoginUserContainerState extends ConsumerState<LoginUserContainer> {
                     SvgPicture.asset("assets/images/next_icon.svg"),
                     const SizedBox(width: 8),
                     const CommonAppText(
-                      title: "Register",
+                      title: "Login",
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       titleColor: Color(0xFFFFFFFF),
@@ -102,7 +102,7 @@ class _LoginUserContainerState extends ConsumerState<LoginUserContainer> {
                       ..onTap = () {
                         ref.read(onboardingProvider).setIsLogin(false);
                       },
-                    text: "LogIn",
+                    text: "Register",
                     style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ],
