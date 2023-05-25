@@ -41,15 +41,12 @@ class _ChatHomeScreenTileState extends State<ChatHomeScreenTile> {
                 color: const Color(0xFF213241),
                 borderRadius: BorderRadius.circular(100),
               ),
-              child: Container(
-                // padding: const EdgeInsets.only(left: 4),
-                child: Center(
-                  child: CommonAppText(
-                    title: widget.firstCharAvatar,
-                    fontSize: 20,
-                    lineHeight: 0,
-                    titleColor: Colors.white,
-                  ),
+              child: Center(
+                child: CommonAppText(
+                  title: widget.firstCharAvatar,
+                  fontSize: 20,
+                  lineHeight: 0,
+                  titleColor: Colors.white,
                 ),
               ),
             ),

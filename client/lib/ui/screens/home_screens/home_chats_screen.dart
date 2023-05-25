@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:chat_app/infrastructure/providers/provider_registration.dart';
 import 'package:chat_app/ui/common/common_app_text/common_app_text.dart';
 import 'package:chat_app/ui/screens/chat_screen/chat_screen.dart';
@@ -43,7 +41,6 @@ class _HomeChatsScreenState extends ConsumerState<HomeChatsScreen> {
                             itemCount: onBoardingProviderWatch.allUsersbyIdDataList.length,
                             itemBuilder: (context, i) {
                               var data = onBoardingProviderWatch.allUsersbyIdDataList[i];
-                              inspect(data);
                               return ChatHomeScreenTile(
                                 firstCharAvatar: data.isGroupChat!
                                     ? data.chatName![0]
@@ -82,11 +79,9 @@ class _HomeChatsScreenState extends ConsumerState<HomeChatsScreen> {
                               );
                             },
                           )
-                        : Container(
-                            child: CommonAppText(
-                              title: "No Contacts Found",
-                              fontSize: 22,
-                            ),
+                        : const CommonAppText(
+                            title: "No Messages Found",
+                            fontSize: 22,
                           ),
                   )
                 : Expanded(
@@ -115,17 +110,15 @@ class _HomeChatsScreenState extends ConsumerState<HomeChatsScreen> {
                                                 avatarName: data?.firstName?[0].toUpperCase() ?? '',
                                                 subTitle: '',
                                                 title: '${data?.firstName} ${data?.lastName}',
-                                                members: [],
+                                                members: const [],
                                               )));
                                 },
                               );
                             },
                           )
-                        : Container(
-                            child: CommonAppText(
-                              title: "No Contacts Found",
-                              fontSize: 22,
-                            ),
+                        : const CommonAppText(
+                            title: "No Contacts Found",
+                            fontSize: 22,
                           ),
                   )
             // : Container(
