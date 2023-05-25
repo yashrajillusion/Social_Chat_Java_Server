@@ -3,7 +3,7 @@
 
 Backend API Documentation: [Click here to view](https://mahogany-pharaoh-f89.notion.site/Social-Chat-1e366850732249e287668f705de02a79)
 
-# Technologies that we used to create Fronted Applications :-
+### Technologies that we used to create Fronted Applications :-
 1. Flutter
 2. Dart
 3. Riverpod
