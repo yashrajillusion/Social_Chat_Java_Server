@@ -52,8 +52,17 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: 60,
                   width: 60,
                   decoration: BoxDecoration(
-                    color: Colors.amber,
+                    color: const Color(0xFF424F63),
                     borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: const Center(
+                    child: CommonAppText(
+                      title: "P",
+                      fontSize: 28,
+                      lineHeight: 0,
+                      titleColor: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -62,12 +71,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     CommonAppText(
-                      title: "Aman Singh",
+                      title: "Pranav Dalvi",
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                     CommonAppText(
-                      title: "Aman Singh",
+                      title: "pranavalvi9@gmail.com",
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       titleColor: Color(0xFF191919),
